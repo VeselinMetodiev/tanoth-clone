@@ -1,0 +1,15 @@
+.attributes-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  width: 300px; /* adjust the width as needed */
+}
+
+.attribute {
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}

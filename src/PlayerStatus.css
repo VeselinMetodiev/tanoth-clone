@@ -1,0 +1,33 @@
+/* styles.css */
+
+.energy-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+}
+
+.energy-text {
+  /* font-size: 18px;
+  font-weight: bold; */
+  /* margin-bottom: 5px; */
+}
+
+.progress-bar {
+  /* width: 100%; */
+}
+
+/* Optional: Customize the progress bar appearance */
+progress {
+  height: 8px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #f0f0f0;
+}
+
+progress::-webkit-progress-value {
+  background-color: #4caf50; /* Adjust the color as needed */
+}
