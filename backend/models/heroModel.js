@@ -19,7 +19,7 @@ const AttributesSchema = new mongoose.Schema({
   },
 });
 
-const heroSchema = mongoose.Schema(
+const characterSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -46,6 +46,6 @@ const heroSchema = mongoose.Schema(
   }
 );
 
-const Hero = mongoose.model("Hero", heroSchema);
+const Character = mongoose.model("Character", characterSchema);
 
-export default Hero;
+export default Character;
