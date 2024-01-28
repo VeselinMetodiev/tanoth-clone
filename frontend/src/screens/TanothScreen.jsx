@@ -1,15 +1,14 @@
 // App.js
 
 import React, { useState } from "react";
-import Player from "./Player";
-import Adventure from "./Adventure";
-import Merchant from "./Merchant";
-import Dungeon from "./Dungeon";
-import Navbar from "./Navbar";
-
-import "./App.css";
-import Alchemist from "./Alchemist";
-import Work from "./Work";
+import Player from "../tanoth/Player";
+import Adventure from "../tanoth/Adventure";
+import Merchant from "../tanoth/Merchant";
+import Dungeon from "../tanoth/Dungeon";
+import Navbar from "../tanoth/Navbar";
+import Alchemist from "../tanoth/Alchemist";
+import Work from "../tanoth/Work";
+import "./TanothScreen.css";
 
 function App() {
   const [activeScreen, setActiveScreen] = useState("Character");
