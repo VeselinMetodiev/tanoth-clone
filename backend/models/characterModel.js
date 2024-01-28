@@ -38,7 +38,12 @@ const characterSchema = mongoose.Schema(
     attributes: {
       type: AttributesSchema,
       required: true,
-      default: {},
+      default: {
+        strength: 10,
+        agility: 10,
+        constitution: 10,
+        intelligence: 10,
+      },
     },
   },
   {
