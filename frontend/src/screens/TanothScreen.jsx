@@ -5,6 +5,7 @@ import Player from "../tanoth/Player";
 import Adventure from "../tanoth/Adventure";
 import Merchant from "../tanoth/Merchant";
 import Dungeon from "../tanoth/Dungeon";
+import HallOfFame from "../tanoth/HallOfFame";
 import Navbar from "../tanoth/Navbar";
 import Alchemist from "../tanoth/Alchemist";
 import Work from "../tanoth/Work";
@@ -69,6 +70,7 @@ function App() {
         {activeScreen === "Work" && (
           <Work player={player} setPlayer={setPlayer} />
         )}
+        {activeScreen === "HallOfFame" && <HallOfFame player={player} />}
       </div>
     </div>
   );

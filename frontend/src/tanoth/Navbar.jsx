@@ -7,6 +7,9 @@ const Navbar = ({ setActiveScreen }) => {
       <button onClick={() => setActiveScreen("Character")}>Character</button>
       <button onClick={() => setActiveScreen("Adventure")}>Adventure</button>
       <button onClick={() => setActiveScreen("Work")}>Work</button>
+      <button onClick={() => setActiveScreen("HallOfFame")}>
+        Hall Of Fame
+      </button>
       <button onClick={() => setActiveScreen("Merchant")}>Merchant</button>
       <button onClick={() => setActiveScreen("Alchemist")}>Alchemist</button>
       <button onClick={() => setActiveScreen("Dungeon")}>Dungeon</button>
