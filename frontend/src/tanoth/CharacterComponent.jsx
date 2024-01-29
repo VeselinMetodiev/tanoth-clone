@@ -7,6 +7,7 @@ import {
   useUpdateCharacterByIdMutation,
   useDeleteCharacterByIdMutation,
 } from "../slices/characterSlice";
+import CharactersTable from "./CharactersTable";
 
 const CharacterComponent = () => {
   const [characterName, setCharacterName] = useState("");
@@ -94,7 +95,10 @@ const CharacterComponent = () => {
       {isFetchingCharacters ? (
         "Loading..."
       ) : (
-        <pre>{JSON.stringify(characters, null, 2)}</pre>
+        <CharactersTable
+          characters={characters}
+          isFetchingCharacters={isFetchingCharacters}
+        />
       )}
 
       <h2>Get Character By Name</h2>
