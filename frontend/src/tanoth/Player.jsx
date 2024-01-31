@@ -4,14 +4,17 @@ import CoinNumber from "./CoinNumber";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./Player.css";
 import PlayerStatus from "./PlayerStatus";
+import { useSelector } from "react-redux";
 
 const Player = ({ player, useHealthPotion, trainAttribute }) => {
   const healthPercentage = (player.health / 100) * 100;
   const experiencePercentage = (player.experience / (player.level * 100)) * 100;
 
+  const { userInfo } = useSelector((state) => state.auth);
+
   return (
     <div className="player-container">
-      <h2>{player.name}</h2>
+      <h2>{userInfo.name}</h2>
       <div>
         <p>Level: {player.level}</p>
         <p>Gold: {player.gold}</p>
