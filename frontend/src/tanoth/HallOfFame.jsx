@@ -1,9 +1,10 @@
 import React from "react";
+import CharacterComponent from "./Characters";
 
 const HallOfFame = ({ player, setPlayer }) => {
   return (
     <div>
-      <h2>HallOfFame Screen</h2>
+      <CharacterComponent />
     </div>
   );
 };

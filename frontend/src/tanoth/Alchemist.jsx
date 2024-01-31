@@ -1,11 +1,11 @@
 import React from "react";
-import CharacterComponent from "./CharacterComponent";
+import CharacterComponent from "./Characters";
 
 const Alchemist = ({ player, setPlayer }) => {
   // Implement shop functionality
   return (
     <div>
-      <CharacterComponent />
+      <h2>Alchemist screen</h2>
     </div>
   );
 };
