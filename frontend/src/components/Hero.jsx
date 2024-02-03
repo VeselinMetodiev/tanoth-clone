@@ -2,38 +2,32 @@ import { Form, Container, Card, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateCharacterMutation } from "../slices/characterSlice";
-
+import { useGetCharactersQuery } from "../slices/characterApiSlice";
+import { toast } from "react-toastify";
+import { setHero } from "../slices/heroSlice";
 const Hero = () => {
   const [name, setName] = useState("");
-
-  const [createCharacter, { isLoading: isCreatingCharacter }] =
-    useCreateCharacterMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleCreateCharacter = async (e) => {
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const {
+    data: characters,
+    isLoading,
+    error,
+    refetch,
+  } = useGetCharactersQuery();
+
+  const handleGetCharacter = async (e) => {
     e.preventDefault();
     try {
-      const newCharacterData = {
-        name: name,
-        gold: 100,
-        experience: 0,
-        fame: 0,
-        attributes: {
-          strength: 10,
-          agility: 10,
-          constitution: 10,
-          intelligence: 10,
-        },
-      };
-
-      const result = await createCharacter(newCharacterData);
+      const res = characters.find(
+        (character) => character.name === userInfo.name
+      );
+      dispatch(setHero({ ...res }));
       navigate("/tanoth");
-      if (result.data) {
-        setSelectedCharacterId(result.data._id);
-      }
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -49,30 +43,16 @@ const Hero = () => {
             an HTTP-Only cookie. It also uses Redux Toolkit and the React
             Bootstrap library
           </p>
-          <Form onSubmit={handleCreateCharacter}>
-            <Form.Group className="my-2" controlId="email">
-              <Form.Label>Your unique character's name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+          <Form onSubmit={handleGetCharacter}>
             <Button
-              disabled={isCreatingCharacter}
+              disabled={isLoading}
               type="submit"
               variant="primary"
               className="mt-3"
             >
-              Sign In
-            </Button>
-          </Form>
-          <div className="d-flex">
-            <Button variant="primary" href="/tanoth" className="me-3">
               Tanoth
             </Button>
-          </div>
+          </Form>
         </Card>
       </Container>
     </div>

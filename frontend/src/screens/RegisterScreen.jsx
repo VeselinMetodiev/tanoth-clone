@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
-import { useCreateCharacterMutation } from "../slices/characterSlice";
+import { useCreateCharacterMutation } from "../slices/characterApiSlice";
+import { setHero } from "../slices/heroSlice";
 
 const RegisterScreen = () => {
   const [name, setName] = useState("");
@@ -58,10 +59,7 @@ const RegisterScreen = () => {
 
         const result = await createCharacter(newCharacterData);
 
-        if (result.data) {
-          setSelectedCharacterId(result.data._id);
-        }
-
+        dispatch(setHero({ ...result }));
         navigate("/");
       } catch (err) {
         toast.error(err?.data?.message || err.error);

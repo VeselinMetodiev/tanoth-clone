@@ -11,10 +11,10 @@ const Player = ({ player, useHealthPotion, trainAttribute }) => {
   const experiencePercentage = (player.experience / (player.level * 100)) * 100;
 
   const { userInfo } = useSelector((state) => state.auth);
-
+  const { heroInfo } = useSelector((state) => state.hero);
   return (
     <div className="player-container">
-      <h2>{userInfo.name}</h2>
+      <h2>{heroInfo.name}</h2>
       <div>
         <p>Level: {player.level}</p>
         <p>Gold: {player.gold}</p>

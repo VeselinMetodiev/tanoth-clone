@@ -6,7 +6,7 @@ import {
   useGetCharacterByNameQuery,
   useUpdateCharacterByIdMutation,
   useDeleteCharacterByIdMutation,
-} from "../slices/characterSlice";
+} from "../slices/characterApiSlice";
 import CharactersTable from "./CharactersTable";
 
 const CharacterComponent = () => {
