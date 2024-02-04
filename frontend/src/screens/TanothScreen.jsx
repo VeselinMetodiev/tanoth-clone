@@ -10,11 +10,16 @@ import Navbar from "../tanoth/Navbar";
 import Alchemist from "../tanoth/Alchemist";
 import Work from "../tanoth/Work";
 import "./TanothScreen.css";
-import { useGetCharactersQuery } from "../slices/characterApiSlice";
+import { useUpdateCharacterByIdMutation } from "../slices/characterApiSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { setHero } from "../slices/heroSlice";
 
 function App() {
   const { heroInfo } = useSelector((state) => state.hero);
+
+  const [updateCharacterById, { isLoading, isError }] =
+    useUpdateCharacterByIdMutation();
+  const dispatch = useDispatch();
 
   const [activeScreen, setActiveScreen] = useState("Character");
   const [player, setPlayer] = useState({
@@ -24,25 +29,50 @@ function App() {
     gold: 100, // Starting gold
     health: 100,
     damage: 10,
-    inventory: {
-      healthPotion: 3,
-    },
+    inventory: "",
     // New attributes
-    attack: 10,
-    agility: 10,
-    stamina: 10,
-    intelligence: 10,
+    attributes: {
+      strength: 10,
+      agility: 10,
+      constitution: 10,
+      intelligence: 10,
+    },
   });
 
   const trainAttribute = async (attribute) => {
-    const trainingCost = 5 * (player[attribute] - 9);
-
+    console.log({ attribute });
+    console.log("attributes: " + JSON.stringify(player.attributes));
+    console.log("attribute: " + player.attributes[attribute]);
+    const trainingCost = 5 * (player.attributes[attribute] - 9);
+    console.log({ trainingCost });
     if (player.gold >= trainingCost) {
+      const newStats = {
+        ...player,
+        gold: player.gold - trainingCost,
+        attributes: {
+          ...player.attributes,
+          [attribute]: player.attributes[attribute] + 1,
+        },
+      };
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
         gold: prevPlayer.gold - trainingCost,
-        [attribute]: prevPlayer[attribute] + 1,
+        attributes: {
+          ...prevPlayer.attributes,
+          [attribute]: prevPlayer.attributes[attribute] + 1,
+        },
       }));
+      console.log({ player });
+      try {
+        const res = await updateCharacterById({
+          id: heroInfo.data?._id || heroInfo._id,
+          data: newStats,
+        }).unwrap();
+        console.log({ res });
+        dispatch(setHero({ ...res }));
+      } catch (error) {
+        console.error("Error updating character:", error);
+      }
     } else {
       alert("You don't have enough gold to train this attribute!");
     }

@@ -69,19 +69,18 @@ const getCharacters = asyncHandler(async (req, res) => {
 // @access  Public
 const getCharacterById = asyncHandler(async (req, res) => {
   const character = await Character.findById(req.params.id);
-
   if (character) {
     res.json({
-      _id: character._id,
-      name: character.name,
-      gold: character.gold,
-      experience: character.experience,
-      level: character.level,
-      energy: character.energy,
-      fame: character.fame,
-      attributes: character.attributes,
-      damage: character.damage,
-      inventory: character.inventory,
+      _id: req.body._id || character._id,
+      name: req.body.name || character.name,
+      gold: req.body.gold || character.gold,
+      experience: req.body.experience || character.experience,
+      level: req.body.level || character.level,
+      energy: req.body.energy || character.energy,
+      fame: req.body.fame || character.fame,
+      attributes: req.body.attributes || character.attributes,
+      damage: req.body.damage || character.damage,
+      inventory: req.body.inventory || character.inventory,
     });
   } else {
     res.status(404);
@@ -93,34 +92,38 @@ const getCharacterById = asyncHandler(async (req, res) => {
 // @route   PUT /api/characters/:id
 // @access  Public
 const updateCharacterById = asyncHandler(async (req, res) => {
-  const character = await Character.findById(req.params.id);
+  try {
+    const character = await Character.findById(req.params.id);
+    if (character) {
+      character._id = req.body._id || character._id;
+      character.name = req.body.name || character.name;
+      character.gold = req.body.gold || character.gold;
+      character.experience = req.body.experience || character.experience;
+      character.fame = req.body.fame || character.fame;
+      character.attributes = req.body.attributes || character.attributes;
+      character.level = req.body.level || character.level;
+      character.energy = req.body.energy || character.energy;
+      character.inventory = req.body.inventory || character.inventory;
+      const updatedCharacter = await character.save();
 
-  if (character) {
-    character.name = req.body.name || character.name;
-    character.gold = req.body.gold || character.gold;
-    character.experience = req.body.experience || character.experience;
-    character.fame = req.body.fame || character.fame;
-    character.attributes = req.body.attributes || character.attributes;
-    character.level = req.body.level || character.level;
-    character.energy = req.body.energy || character.energy;
-    character.inventory = req.body.inventory || character.inventory;
-    const updatedCharacter = await character.save();
-
-    res.json({
-      _id: updatedCharacter._id,
-      name: updatedCharacter.name,
-      gold: updatedCharacter.gold,
-      experience: updatedCharacter.experience,
-      level: updatedCharacter.level,
-      energy: updatedCharacter.energy,
-      fame: updatedCharacter.fame,
-      attributes: updatedCharacter.attributes,
-      damage: updatedCharacter.damage,
-      inventory: updatedCharacter.inventory,
-    });
-  } else {
-    res.status(404);
-    throw new Error("Character not found");
+      res.json({
+        _id: updatedCharacter._id,
+        name: updatedCharacter.name,
+        gold: updatedCharacter.gold,
+        experience: updatedCharacter.experience,
+        level: updatedCharacter.level,
+        energy: updatedCharacter.energy,
+        fame: updatedCharacter.fame,
+        attributes: updatedCharacter.attributes,
+        damage: updatedCharacter.damage,
+        inventory: updatedCharacter.inventory,
+      });
+    } else {
+      res.status(404);
+      throw new Error("Character not found");
+    }
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
