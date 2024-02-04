@@ -46,19 +46,23 @@ const RegisterScreen = () => {
 
         const newCharacterData = {
           name: name,
+          level: 1,
           gold: 100,
+          energy: 100,
           experience: 0,
           fame: 10,
+          damage: 10,
           attributes: {
             strength: 10,
             agility: 10,
             constitution: 10,
             intelligence: 10,
           },
+          inventory: "",
         };
 
         const result = await createCharacter(newCharacterData);
-
+        console.log("Register: " + result);
         dispatch(setHero({ ...result }));
         navigate("/");
       } catch (err) {

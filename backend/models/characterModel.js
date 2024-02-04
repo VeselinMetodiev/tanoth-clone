@@ -26,7 +26,13 @@ const characterSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    level: {
+      type: Number,
+    },
     gold: {
+      type: Number,
+    },
+    energy: {
       type: Number,
     },
     experience: {
@@ -34,6 +40,12 @@ const characterSchema = mongoose.Schema(
     },
     fame: {
       type: Number,
+    },
+    damage: {
+      type: Number,
+    },
+    inventory: {
+      type: String, //TODO: add Inventory schema
     },
     attributes: {
       type: AttributesSchema,

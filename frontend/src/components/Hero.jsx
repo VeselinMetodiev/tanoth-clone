@@ -12,6 +12,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const { userInfo } = useSelector((state) => state.auth);
+  const { heroInfo } = useSelector((state) => state.hero);
 
   const {
     data: characters,
@@ -22,15 +23,18 @@ const Hero = () => {
 
   const handleGetCharacter = async (e) => {
     e.preventDefault();
-    try {
-      const res = characters.find(
-        (character) => character.name === userInfo.name
-      );
-      dispatch(setHero({ ...res }));
-      navigate("/tanoth");
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
+    if (!heroInfo) {
+      try {
+        const res = characters.find(
+          (character) => character.name === userInfo.name
+        );
+        console.log("Hero class: " + res);
+        dispatch(setHero({ ...res }));
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
     }
+    navigate("/tanoth");
   };
 
   return (

@@ -5,7 +5,17 @@ import Character from "../models/characterModel.js";
 // @route   POST /api/characters
 // @access  Public
 const createCharacter = asyncHandler(async (req, res) => {
-  const { name, gold, experience, fame, attributes } = req.body;
+  const {
+    name,
+    gold,
+    experience,
+    fame,
+    attributes,
+    level,
+    damage,
+    energy,
+    inventory,
+  } = req.body;
 
   const characterExists = await Character.findOne({ name });
 
@@ -20,6 +30,11 @@ const createCharacter = asyncHandler(async (req, res) => {
     experience,
     fame,
     attributes,
+    level,
+    experience,
+    inventory,
+    damage,
+    energy,
   });
 
   if (character) {
@@ -28,8 +43,12 @@ const createCharacter = asyncHandler(async (req, res) => {
       name: character.name,
       gold: character.gold,
       experience: character.experience,
+      level: character.level,
+      energy: character.energy,
       fame: character.fame,
       attributes: character.attributes,
+      damage: character.damage,
+      inventory: character.inventory,
     });
   } else {
     res.status(400);
@@ -57,8 +76,12 @@ const getCharacterById = asyncHandler(async (req, res) => {
       name: character.name,
       gold: character.gold,
       experience: character.experience,
+      level: character.level,
+      energy: character.energy,
       fame: character.fame,
       attributes: character.attributes,
+      damage: character.damage,
+      inventory: character.inventory,
     });
   } else {
     res.status(404);
@@ -78,7 +101,9 @@ const updateCharacterById = asyncHandler(async (req, res) => {
     character.experience = req.body.experience || character.experience;
     character.fame = req.body.fame || character.fame;
     character.attributes = req.body.attributes || character.attributes;
-
+    character.level = req.body.level || character.level;
+    character.energy = req.body.energy || character.energy;
+    character.inventory = req.body.inventory || character.inventory;
     const updatedCharacter = await character.save();
 
     res.json({
@@ -86,8 +111,12 @@ const updateCharacterById = asyncHandler(async (req, res) => {
       name: updatedCharacter.name,
       gold: updatedCharacter.gold,
       experience: updatedCharacter.experience,
+      level: updatedCharacter.level,
+      energy: updatedCharacter.energy,
       fame: updatedCharacter.fame,
       attributes: updatedCharacter.attributes,
+      damage: updatedCharacter.damage,
+      inventory: updatedCharacter.inventory,
     });
   } else {
     res.status(404);
@@ -115,15 +144,18 @@ const deleteCharacterById = asyncHandler(async (req, res) => {
 // @access  Public
 const getCharacterByName = asyncHandler(async (req, res) => {
   const character = await Character.findOne({ name: req.params.name });
-
   if (character) {
     res.json({
       _id: character._id,
       name: character.name,
       gold: character.gold,
       experience: character.experience,
+      level: character.level,
+      energy: character.energy,
       fame: character.fame,
       attributes: character.attributes,
+      damage: character.damage,
+      inventory: character.inventory,
     });
   } else {
     res.status(404);

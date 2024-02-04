@@ -36,7 +36,7 @@ const LoginScreen = () => {
       const result = characters.find(
         (character) => character.name === userInfo.name
       );
-      console.log({ result });
+      console.log("Login Screen: " + result);
       dispatch(setHero({ ...result }));
       navigate("/");
     } catch (err) {
