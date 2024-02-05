@@ -22,22 +22,8 @@ function App() {
   const dispatch = useDispatch();
 
   const [activeScreen, setActiveScreen] = useState("Character");
-  const [player, setPlayer] = useState({
-    name: "hero",
-    level: 1,
-    experience: 0,
-    gold: 100, // Starting gold
-    health: 100,
-    damage: 10,
-    inventory: "",
-    // New attributes
-    attributes: {
-      strength: 10,
-      agility: 10,
-      constitution: 10,
-      intelligence: 10,
-    },
-  });
+  const [player, setPlayer] = useState(heroInfo);
+  console.log(player);
 
   const trainAttribute = async (attribute) => {
     console.log({ attribute });

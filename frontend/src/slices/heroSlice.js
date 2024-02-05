@@ -12,6 +12,7 @@ const heroSlice = createSlice({
   reducers: {
     setHero: (state, action) => {
       console.log(action.payload);
+      console.log(action.payload.data);
       state.heroInfo = action.payload;
       localStorage.setItem("heroInfo", JSON.stringify(action.payload));
     },

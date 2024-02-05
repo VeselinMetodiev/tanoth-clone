@@ -62,8 +62,8 @@ const RegisterScreen = () => {
         };
 
         const result = await createCharacter(newCharacterData);
-        console.log("Register: " + result);
-        dispatch(setHero({ ...result }));
+        console.log("Register: " + JSON.stringify(result));
+        dispatch(setHero({ ...result.data }));
         navigate("/");
       } catch (err) {
         toast.error(err?.data?.message || err.error);
